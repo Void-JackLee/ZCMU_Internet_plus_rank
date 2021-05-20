@@ -3,76 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
     <title>我的比赛</title>
-    <style>
-        nav {
-            background: linear-gradient(90deg,#021048,#1e38a3);
-        }
-
-        .navbar-brand {
-            white-space: normal;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .nav-link {
-            color: #EFEFEF !important;
-        }
-
-        main {
-            margin: 10px 16px;
-        }
-
-        table + p {
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-
-        .center {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-        }
-
-        /*--------- 模态窗 BEGIN ---------*/
-        .model-window {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-
-        }
-
-        .model-window .cover {
-            background-color: #000000BB;
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .model-window .window {
-            background-color: #fff;
-            border-radius: 10px;
-            width: 400px;
-            height: 500px;
-        }
-        /*---------- 模态窗 END ----------*/
-
-
-
-        @media screen and (min-width: 768px) {
-            .navbar-brand {
-                white-space: nowrap;
-            }
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -84,6 +15,9 @@
     </ul>
 </nav>
 <main>
+    <div v-if="!loaded" class="loading center">
+        <img alt="loading..." id="loading_img" src="../img/circles.svg">
+    </div>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
         <h1 class="h2">我的比赛</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -107,37 +41,75 @@
         </table>
         <p>没有更多了～</p>
     </div>
-    <section v-if="showAdd" class="model-window">
+    <section v-show="showAdd" class="model-window">
         <div class="cover center">
             <div class="window">
+                <form>
+                    <h3 class="form-signin-heading" style="text-align: center;">添加比赛信息</h3>
+                    <div class="form-group">
+                        <label for="name">比赛名:</label>
+                        <input id="name" type="text" class="form-control" v-model="create.contestName">
+                    </div>
+                    <div class="form-group">
+                        <label for="hold">比赛时间:</label>
+                        <div class='input-group' id='datepicker'>
+                            <input id="hold" type="text" class="form-control" v-model="create.holdTime">
+                            <div class="input-group-append">
+                                <div class="input-group-text"><i class="glyphicon glyphicon-calendar"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p></p>
+                    <div class="button-domain">
+                        <button style="margin-right: 10px" type="button" class="btn btn-outline-danger" v-on:click="cancelAdd">取消</button>
+                        <button type="button" class="btn btn-outline-primary" v-on:click="submitAdd">确定</button>
+                    </div>
+                </form>
 
             </div>
         </div>
 
     </section>
 </main>
-
+<link rel="stylesheet" href="../lib/bootstrap/css/bootstrap.min.css">
+<link href="../lib/bootstrap/css/font.css" rel="stylesheet">
+<link rel="stylesheet" href="../css/proj.css">
 <script src="../lib/vue.js"></script>
 <script src="../lib/axios.min.js"></script>
+<link rel="stylesheet" href="../lib/flatpickr/flatpickr.min.css">
+<script src="../lib/flatpickr/flatpickr.min.js"></script>
 <script>
     const app = new Vue({
         el: 'main',
         data: {
+            loaded: true,
             contests:[],
-            showAdd: false
+            showAdd: false,
+            create: {
+                contestName: '',
+                holdTime: ''
+            }
         },
         methods: {
             addContest: ()=>{
                 // 显示
                 app.showAdd = true;
+            },
+            cancelAdd: ()=> {
+                app.showAdd = false;
+            },
+            submitAdd: () => {
+                console.log(app.$data.create)
+                // app.showAdd = false;
             }
         }
     });
 
-    // fetch data
-    (()=>{
+    // init
+    flatpickr('#datepicker input',{})
 
-    })();
+
+    // fetch data
 </script>
 </body>
 </html>

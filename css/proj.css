@@ -1,0 +1,92 @@
+nav {
+    background: linear-gradient(90deg,#021048,#1e38a3);
+}
+
+.navbar-brand {
+    white-space: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    color: #EFEFEF !important;
+}
+
+main {
+    margin: 10px 16px;
+}
+
+table + p {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.center {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+/*--------- 模态窗 BEGIN ---------*/
+.model-window {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.model-window .cover {
+    background-color: #000000BB;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.model-window .window {
+    background-color: #fff;
+    border-radius: 10px;
+    width: 400px;
+    height: 320px;
+    padding: 30px;
+}
+
+.window .form-group {
+    background-color: white;
+}
+
+.model-window .button-domain {
+    display: flex;
+}
+
+.model-window .button-domain button {
+    flex: 1;
+}
+/*---------- 模态窗 END ----------*/
+
+/*-----加载 BEGIN-----*/
+
+.loading {
+    background-color: #ffffff;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+
+/*-----加载  END -----*/
+
+
+@media screen and (min-width: 768px) {
+    .navbar-brand {
+        white-space: nowrap;
+    }
+}
