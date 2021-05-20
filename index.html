@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <title>浙江中医药大学"互联网+"大学生创新创业大赛决赛评分系统</title>
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <style>
+        #banner {
+            background: url("img/banner_blur.jpeg");
+            background-size: cover;
+        }
+        #banner img {
+            display: block;
+            width: 100%;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+
+        .index-title {
+            font-size: 30px;
+            text-align: center;
+            padding: 16px;
+            color: white;
+            background-color: #8282f4;
+        }
+
+        html,body {
+            height: 100%;
+        }
+
+        .content {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+        }
+
+        .center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .center button {
+            width: 100%;
+        }
+    </style>
+
+</head>
+<body>
+<div class="content">
+    <div id="banner">
+        <img src="img/banner.jpeg"/>
+    </div>
+    <h1 class="index-title">浙江中医药大学"互联网+"大学生创新创业大赛决赛评分系统</h1>
+    <div class="center">
+        <form>
+            <div class="form-group">
+                <label for="exampleInputEmail1">用户名</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="uname">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">密码</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" v-model="password" @keyup.enter="login">
+            </div>
+            <button type="button" class="btn btn-primary" v-on:click="login">Login</button>
+        </form>
+    </div>
+</div>
+<script src="lib/vue.js"></script>
+<script src="lib/axios.min.js"></script>
+<script src="js/util.js"></script>
+<script>
+    function done(res)
+    {
+        const resp = getResp(res,function() {
+            alert('密码错误或账号错误')
+        })
+        if (!resp) return;
+        window.location = 'u/projects.html';
+    }
+
+    const app = new Vue({
+        el: 'form',
+        data: {
+            uname:'',
+            password:''
+        },
+        methods: {
+            login: function () {
+                axios.post('login',app.$data).then(done,done);
+            }
+        }
+    })
+</script>
+</body>
+</html>
